@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.title }}</title>
+  <link rel="stylesheet" href="/assets/css/home.css">
+</head>
+<body>
+  
+    <div class="projects-grid">
+        {% for project in site.projects %}
+        <div class="project-item">
+            <a href="{{ project.url }}" style="text-decoration: none;">
+            {% assign project_folder = "/assets/images/projects/" | append: project.folder %}
+            {% assign project_images = site.static_files | where_exp: "file", "file.path contains project_folder" %}
+            {% assign first_image = project_images | first %}
+            {% if first_image %}
+                <img class="project-image" src="{{ first_image.path }}" alt="{{ project.title }}">
+            {% endif %}
+            <div class="project-info">
+                <div class="project-title">{{ project.title }}</div>
+                <div class="project-period">{{ project.period }}</div>
+            </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="profile">
+        <h1>{{ site.profile.name }}</h1>
+        <p>{{ site.profile.description }}</p>
+        <p><strong>Email:</strong> <a href="mailto:{{ site.profile.email }}">{{ site.profile.email }}</a></p>
+        <p><strong>Location:</strong> {{ site.profile.location }}</p>
+    </div>
+</body>
+</html>

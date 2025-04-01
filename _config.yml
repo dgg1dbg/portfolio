@@ -1,0 +1,11 @@
+title: "JeongMin Lee"
+profile:
+  name: "JeongMin Lee"
+  email: "jeongmin.lihi@gmail.com"
+  description: "A passionate photographer"
+  location: "Seoul, South Korea"
+
+collections:
+  projects:
+    output: true
+    permalink: "/projects/:title/"

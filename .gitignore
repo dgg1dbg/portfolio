@@ -1,0 +1,10 @@
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
+_projects/**
+!_projects/project_template.md
+assets/images/projects/**
+!assets/images/projects/project_template/
+!assets/images/projects/project_template/**

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="/assets/css/project.css">
+</head>
+<body>
+    <div class="gallery-container">
+        <div class="text-container">
+            <p class="title">{{ page.title }}</p>
+            <p class="period">{{ page.period }}</p>
+        </div>
+        <div class="image-container">
+            {% assign project_folder = "/assets/images/projects/" | append: page.folder %}
+            
+            {% assign images = site.static_files | where: "path", project_folder %}
+            {% assign images = site.static_files | where_exp: "file", "file.path contains project_folder" %}
+            {% for image in images %}
+            
+                <img class="gallery-image" src="{{ image.path }}" alt="Project Image" {% if forloop.first %}style="display:block;"{% else %}style="display:none;"{% endif %}>
+            {% endfor %}
+        </div>
+        <div class = "statement-container" style="display:none;">
+            <p class="statement">{{ page.statement | newline_to_br}}</p>
+        </div>
+        <div class="nav-container">
+            <button class="nav-button left" onclick="changeImage(-1)">&#10094;</button>
+            <button class="nav-button" onclick="changeImage(1)">&#10095;</button>
+        </div>
+        <button class="toggle-button" onclick="toggle()">Text</button>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll(".gallery-image");
+        const imageContainer = document.querySelector(".image-container");
+        const statementContainer = document.querySelector(".statement-container");
+        const toggleButton = document.querySelector(".toggle-button");
+
+        function changeImage(direction) {
+            images[currentIndex].style.display = "none";
+            currentIndex = (currentIndex + direction + images.length) % images.length;
+            images[currentIndex].style.display = "block";
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "ArrowRight") changeImage(1);
+            if (event.key === "ArrowLeft") changeImage(-1);
+        });
+
+        function toggle() {
+            if (statementContainer.style.display === "none") {
+                statementContainer.style.display = "block";
+                imageContainer.style.display = "none";
+                toggleButton.textContent = "Work";
+            } else {
+                statementContainer.style.display = "none";
+                imageContainer.style.display = "flex";
+                toggleButton.textContent = "Text";
+            }
+        }
+    </script>
+</body>
+</html>
