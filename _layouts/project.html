@@ -32,6 +32,11 @@
         <button class="toggle-button" onclick="toggle()">Text</button>
     </div>
 
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modal-img">
+    </div>
+
     <script>
         let currentIndex = 0;
         const images = document.querySelectorAll(".gallery-image");
@@ -61,6 +66,26 @@
                 toggleButton.textContent = "Text";
             }
         }
+
+        const modal = document.getElementById("modal");
+        const modalImg = document.getElementById("modal-img");
+
+        images.forEach(img => {
+            img.addEventListener("click", () => {
+                modal.style.display = "block";
+                modalImg.src = img.src;
+            });
+        });
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        window.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
